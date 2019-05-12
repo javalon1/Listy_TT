@@ -1,5 +1,7 @@
 package listy;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 class Lista {
     private int[] liczby;
@@ -74,11 +76,41 @@ class Lista {
         return true;
     }
 
-    public void usunPowtorzenia(){
-        System.out.println("usuwasz powtózenia");
+    public void usunPowtorzenia() {
+        System.out.println("usuwasz powtórzenia");
+        int value = 0;
+        for (int i = 0; i < rozmiar - 1; i++) {
+            value = liczby[i];
 
+            for (int a = i + 1; a < rozmiar; a++) {
+                while (liczby[a] == value) {
+                    for (int b = a; b < rozmiar; b++) {
+                        if (b == rozmiar - 1) {
+                            liczby[b] = 0;
+                            rozmiar--;
+                        } else {
+                            liczby[b] = liczby[b + 1];
+                            liczby[b + 1] = 0;
+                            rozmiar--;
+                        }
 
+                    }
+                }
+            }
+        }
+        pisz();
     }
 
+    public void Zapis(String fileName) throws FileNotFoundException{
+            PrintWriter zapis = new PrintWriter(fileName);
+            zapis.println("pojemność listy = " + pojemnosc);
+            zapis.println("rozmiar listy = " + rozmiar);
+            zapis.println("Tablica wygląda:");
+        for (int i = 0; i < rozmiar; i++) {
+            zapis.print(liczby[i]+" ");
+        }
+            zapis.close();
+
+    }
 }
 
